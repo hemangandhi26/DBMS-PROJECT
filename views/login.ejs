@@ -1,0 +1,26 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container">
+    <%- include('partials/flash') %>
+    <div class="auth-container">
+        <div class="auth-box glass-panel">
+            <h2>Welcome Back</h2>
+            <p>Log in to continue shopping or hosting.</p>
+            <form action="/auth/login" method="POST">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" name="email" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" name="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary full-width">Login</button>
+            </form>
+            <p class="auth-switch">Don't have an account? <a href="/auth/register">Register</a></p>
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

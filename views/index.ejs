@@ -1,0 +1,42 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container">
+    <%- include('partials/flash') %>
+    <div class="page-header">
+        <h1>Discover Amazing Products</h1>
+        <p>Shop from the best independent hosts.</p>
+    </div>
+
+    <div class="product-grid">
+        <% if (products.length > 0) { %>
+            <% products.forEach(product => { %>
+                <div class="product-card">
+                    <div class="product-info">
+                        <h3><a href="/product/<%= product.product_id %>"><%= product.name %></a></h3>
+                        <p class="host-name">by <%= product.host_name %></p>
+                        <p class="desc"><%= product.description %></p>
+                        <div class="product-meta">
+                            <span class="price">$<%= parseFloat(product.price).toFixed(2) %></span>
+                            <span class="stock <%= product.stock_quantity > 0 ? 'in-stock' : 'out-of-stock' %>">
+                                <%= product.stock_quantity > 0 ? product.stock_quantity + ' in stock' : 'Out of stock' %>
+                            </span>
+                        </div>
+                    </div>
+                    <% if (user && user.role === 'customer' && product.stock_quantity > 0) { %>
+                        <form action="/cart/add" method="POST" class="add-to-cart-form">
+                            <input type="hidden" name="product_id" value="<%= product.product_id %>">
+                            <button type="submit" class="btn-primary">Add to Cart</button>
+                        </form>
+                    <% } else if (!user) { %>
+                        <a href="/auth/login" class="btn-secondary">Log in to buy</a>
+                    <% } %>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>No products available right now.</p>
+        <% } %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

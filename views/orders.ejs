@@ -1,0 +1,34 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container">
+    <%- include('partials/flash') %>
+    <div class="orders-container">
+        <h2>Your Orders</h2>
+        
+        <% if (orders && orders.length > 0) { %>
+            <div class="orders-list">
+                <% orders.forEach(order => { %>
+                    <div class="order-card glass-panel">
+                        <div class="order-header">
+                            <span class="order-id">Order <a href="/orders/<%= order.order_id %>">#<%= order.order_id %></a></span>
+                            <span class="order-date"><%= new Date(order.created_at).toLocaleDateString() %></span>
+                            <span class="order-status status-<%= order.status %>"><%= order.status.toUpperCase() %></span>
+                        </div>
+                        <div class="order-total">
+                            <strong>Total: $<%= parseFloat(order.total_amount).toFixed(2) %></strong>
+                            <a href="/orders/<%= order.order_id %>" class="btn-secondary btn-sm" style="margin-left: 1rem;">View Details</a>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="glass-panel">
+                <p>You haven't placed any orders yet.</p>
+                <a href="/" class="btn-secondary">Start Shopping</a>
+            </div>
+        <% } %>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

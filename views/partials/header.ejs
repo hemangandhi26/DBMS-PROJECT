@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DBMS E-Commerce</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand"><a href="/">NexusStore</a></div>
+        <ul class="nav-links">
+            <li><a href="/">Catalog</a></li>
+            <% if (user) { %>
+                <% if (user.role === 'host') { %>
+                    <li><a href="/dashboard">Dashboard</a></li>
+                <% } else { %>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/orders">Orders</a></li>
+                <% } %>
+                <li><a href="/auth/logout" class="btn-logout">Logout (<%= user.name %>)</a></li>
+            <% } else { %>
+                <li><a href="/auth/login">Login</a></li>
+                <li><a href="/auth/register" class="btn-primary">Register</a></li>
+            <% } %>
+        </ul>
+    </nav>
+    <div class="container">
+        <% if (success_msg) { %>
+            <div class="alert alert-success"><%= success_msg %></div>
+        <% } %>
+        <% if (error_msg) { %>
+            <div class="alert alert-error"><%= error_msg %></div>
+        <% } %>

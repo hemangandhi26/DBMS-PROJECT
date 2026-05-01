@@ -1,0 +1,34 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<div class="container">
+    <div class="glass-panel" style="max-width: 600px; margin: 0 auto;">
+        <h2><%= product ? 'Edit Product' : 'Add New Product' %></h2>
+        
+        <form action="<%= product ? '/admin/product/' + product.product_id + '/edit' : '/admin/product/new' %>" method="POST" style="margin-top: 1.5rem;">
+            <div class="form-group">
+                <label>Product Name</label>
+                <input type="text" name="name" required value="<%= product ? product.name : '' %>">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="5"><%= product ? product.description : '' %></textarea>
+            </div>
+            <div class="form-group">
+                <label>Price ($)</label>
+                <input type="number" step="0.01" name="price" required value="<%= product ? product.price : '' %>">
+            </div>
+            <div class="form-group">
+                <label>Stock Quantity</label>
+                <input type="number" name="stock_quantity" required min="0" value="<%= product ? product.stock_quantity : '' %>">
+            </div>
+            
+            <div style="display:flex; gap: 1rem; margin-top: 2rem;">
+                <button type="submit" class="btn-primary" style="flex:1;">Save Product</button>
+                <a href="/admin" class="btn-secondary text-center" style="flex:1;">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

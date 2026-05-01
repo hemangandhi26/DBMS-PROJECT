@@ -1,0 +1,48 @@
+<%- include('../partials/head') %>
+<%- include('../partials/navbar') %>
+
+<div class="container dashboard-container">
+    <div class="sidebar glass-panel">
+        <h3>Admin Menu</h3>
+        <ul style="list-style:none; margin-top:1rem; display:flex; flex-direction:column; gap:0.5rem;">
+            <li><a href="/admin">Products</a></li>
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 1rem 0;">
+            <li><a href="/admin/orders">Manage Orders</a></li>
+        </ul>
+    </div>
+    
+    <div class="main-content">
+        <%- include('../partials/flash') %>
+        <h2>Manage Orders</h2>
+        <div class="orders-list">
+            <% if (orders && orders.length > 0) { %>
+                <% orders.forEach(order => { %>
+                    <div class="order-card glass-panel" style="margin-bottom: 1rem;">
+                        <div class="order-header">
+                            <span class="order-id">Order #<%= order.order_id %></span>
+                            <span class="order-date"><%= new Date(order.created_at).toLocaleString() %></span>
+                            <span class="order-status status-<%= order.status %>"><%= order.status.toUpperCase() %></span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-top: 1rem;">
+                            <div class="order-total">
+                                <strong>Total: $<%= parseFloat(order.total_amount).toFixed(2) %></strong>
+                            </div>
+                            <form action="/admin/orders/<%= order.order_id %>/status" method="POST" style="display:flex; gap: 0.5rem;">
+                                <select name="status" style="padding: 0.4rem; background:rgba(0,0,0,0.5);">
+                                    <option value="pending" <%= order.status === 'pending' ? 'selected' : '' %>>Pending</option>
+                                    <option value="completed" <%= order.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                                    <option value="cancelled" <%= order.status === 'cancelled' ? 'selected' : '' %>>Cancelled</option>
+                                </select>
+                                <button type="submit" class="btn-secondary btn-sm">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p>No orders found.</p>
+            <% } %>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

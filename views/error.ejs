@@ -1,0 +1,13 @@
+<%- include('partials/head') %>
+<%- include('partials/navbar') %>
+
+<div class="container">
+    <div class="glass-panel text-center" style="max-width: 600px; margin: 4rem auto;">
+        <h1 style="color: var(--danger); font-size: 4rem; margin-bottom: 1rem;">Opps!</h1>
+        <h2>Something went wrong.</h2>
+        <p style="color: var(--text-muted); margin: 2rem 0;"><%= error || 'An unexpected error occurred.' %></p>
+        <a href="/" class="btn-primary">Return Home</a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
